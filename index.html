@@ -126,8 +126,8 @@ footer { font-size: 13px; color: var(--muted); }
     <p class="sub">Status as of 3 November 2026. Days left count in Shanghai time. Dates marked tbc are not confirmed yet.</p>
     <div class="legend">
       <span class="supply"><i class="dot"></i><span style="color:var(--muted)">Global Supply Chain</span></span>
-      <span class="chinese"><i class="dot"></i><span style="color:var(--muted)">Basic Chinese 1</span></span>
-      <span class="beginners"><i class="dot"></i><span style="color:var(--muted)">Chinese for Beginner 1</span></span>
+      <span class="chinese"><i class="dot"></i><span style="color:var(--muted)">Basic Chinese</span></span>
+      <span class="beginners"><i class="dot"></i><span style="color:var(--muted)">Chinese for Beginner</span></span>
       <span class="finance"><i class="dot"></i><span style="color:var(--muted)">International Finance</span></span>
       <span class="econ"><i class="dot"></i><span style="color:var(--muted)">Economic Theory</span></span>
       <span class="strategy"><i class="dot"></i><span style="color:var(--muted)">Business Strategy</span></span>
@@ -138,7 +138,7 @@ footer { font-size: 13px; color: var(--muted); }
       <div class="chips" id="chips"></div>
       <div class="calrow">
         <button class="btn" id="dl" type="button">Download .ics file</button>
-        <p class="calnote" id="calmsg" aria-live="polite">All-day events with reminders 3 days and 1 day before. Dates marked tbc are not included.</p>
+        <p class="calnote" id="calmsg" aria-live="polite">All-day events with reminders 3 days and 1 day before. Dates marked tbc are not included. Importing again usually updates events you added before.</p>
       </div>
     </div>
   </header>
@@ -148,11 +148,11 @@ footer { font-size: 13px; color: var(--muted); }
     <ul>
       <li data-date="2026-11-10">
         <div class="date">10 or 12 Nov<small>Tue or Thu</small></div>
-        <div class="what"><div class="course chinese"><i class="dot"></i><span class="name">Basic Chinese 1</span></div><div class="type">Midterm exam <span class="tag">date tbc</span></div></div>
+        <div class="what"><div class="course chinese"><i class="dot"></i><span class="name">Basic Chinese</span></div><div class="type">Midterm exam <span class="tag">date tbc</span></div></div>
       </li>
       <li data-date="2026-11-17">
         <div class="date">17 Nov<small>Tue</small></div>
-        <div class="what"><div class="course beginners"><i class="dot"></i><span class="name">Chinese for Beginner 1</span></div><div class="type">Midterm <span class="in"></span></div></div>
+        <div class="what"><div class="course beginners"><i class="dot"></i><span class="name">Chinese for Beginner</span></div><div class="type">Midterm <span class="in"></span></div></div>
       </li>
       <li data-date="2026-11-20">
         <div class="date">20 Nov<small>Fri</small></div>
@@ -196,13 +196,13 @@ footer { font-size: 13px; color: var(--muted); }
       </li>
       <li data-date="2027-01-14">
         <div class="date">14 Jan<small>Thu</small></div>
-        <div class="what"><div class="course chinese"><i class="dot"></i><span class="name">Basic Chinese 1</span></div><div class="type">Final exam <span class="tag">probably, date tbc</span> <span class="in"></span></div></div>
+        <div class="what"><div class="course chinese"><i class="dot"></i><span class="name">Basic Chinese</span></div><div class="type">Final exam <span class="tag">probably, date tbc</span> <span class="in"></span></div></div>
       </li>
     </ul>
   </section>
 
   <section class="open">
-    <h2>Date still open</h2>
+    <h2>Dates not added yet</h2>
     <ul>
       <li>
         <div class="date">TBD</div>
@@ -218,15 +218,15 @@ footer { font-size: 13px; color: var(--muted); }
       </li>
       <li>
         <div class="date">TBD</div>
-        <div class="what"><div class="course beginners"><i class="dot"></i><span class="name">Chinese for Beginner 1</span></div><div class="type">Final exam</div></div>
+        <div class="what"><div class="course beginners"><i class="dot"></i><span class="name">Chinese for Beginner</span></div><div class="type">Final exam</div></div>
       </li>
       <li>
         <div class="date">TBD</div>
-        <div class="what"><div class="course" style="color:var(--muted)"><i class="dot"></i><span class="name">Intermediate Chinese 1</span></div><div class="type">Midterm and final <span class="tag">dates not added yet</span></div></div>
+        <div class="what"><div class="course" style="color:var(--muted)"><i class="dot"></i><span class="name">Intermediate Chinese</span></div><div class="type">Midterm and final</div></div>
       </li>
       <li>
         <div class="date">TBD</div>
-        <div class="what"><div class="course" style="color:var(--muted)"><i class="dot"></i><span class="name">Advanced Chinese 1</span></div><div class="type">Midterm and final <span class="tag">dates not added yet</span></div></div>
+        <div class="what"><div class="course" style="color:var(--muted)"><i class="dot"></i><span class="name">Advanced Chinese</span></div><div class="type">Midterm and final</div></div>
       </li>
     </ul>
   </section>
@@ -259,6 +259,7 @@ footer { font-size: 13px; color: var(--muted); }
       var t = li.querySelector('.type').cloneNode(true);
       t.querySelectorAll('.tag,.in').forEach(function (x) { x.remove(); });
       rows.push({
+        li: li,
         date: li.getAttribute('data-date'),
         course: li.querySelector('.name').textContent.trim(),
         type: t.textContent.trim(),
@@ -288,6 +289,31 @@ footer { font-size: 13px; color: var(--muted); }
       var d = new Date(Date.UTC(+p[0], +p[1] - 1, +p[2] + 1));
       return d.getUTCFullYear() + ('0' + (d.getUTCMonth() + 1)).slice(-2) + ('0' + d.getUTCDate()).slice(-2);
     }
+    function slug(r) { return (r.course + ' ' + r.type).toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-+|-+$/g, ''); }
+    function build(list) {
+      var stamp = new Date().toISOString().replace(/[-:]/g, '').replace(/\.\d{3}/, '');
+      var seq = String(Math.floor(Date.now() / 60000));
+      var lines = ['BEGIN:VCALENDAR', 'VERSION:2.0', 'PRODID:-//MIB2026 exam dates//EN', 'CALSCALE:GREGORIAN', 'X-WR-CALNAME:MIB2026 exam dates'];
+      list.forEach(function (r) {
+        var summary = r.course + ': ' + r.type;
+        lines.push('BEGIN:VEVENT', 'UID:' + slug(r) + '@mib2026-exam-dates', 'DTSTAMP:' + stamp, 'LAST-MODIFIED:' + stamp, 'SEQUENCE:' + seq,
+          'DTSTART;VALUE=DATE:' + ymd(r.date), 'DTEND;VALUE=DATE:' + nextDay(r.date), 'SUMMARY:' + esc(summary));
+        ['-PT63H', '-PT15H'].forEach(function (trig) {
+          lines.push('BEGIN:VALARM', 'ACTION:DISPLAY', 'DESCRIPTION:' + esc(summary), 'TRIGGER:' + trig, 'END:VALARM');
+        });
+        lines.push('END:VEVENT');
+      });
+      lines.push('END:VCALENDAR');
+      return lines.map(fold).join('\r\n') + '\r\n';
+    }
+    function save(text, name) {
+      var blob = new Blob([text], { type: 'text/calendar;charset=utf-8' });
+      var url = URL.createObjectURL(blob);
+      var a = document.createElement('a');
+      a.href = url; a.download = name;
+      document.body.appendChild(a); a.click(); a.remove();
+      setTimeout(function () { URL.revokeObjectURL(url); }, 2000);
+    }
 
     var note = document.getElementById('calmsg');
     var defaultNote = note.textContent;
@@ -297,25 +323,7 @@ footer { font-size: 13px; color: var(--muted); }
         chips.querySelectorAll('input:checked').forEach(function (cb) { chosen.push(cb.value); });
         if (!chosen.length) { note.textContent = 'Select at least one course first.'; return; }
         note.textContent = defaultNote;
-        var stamp = new Date().toISOString().replace(/[-:]/g, '').replace(/\.\d{3}/, '');
-        var lines = ['BEGIN:VCALENDAR', 'VERSION:2.0', 'PRODID:-//MIB2026 exam dates//EN', 'CALSCALE:GREGORIAN', 'X-WR-CALNAME:MIB2026 exam dates'];
-        rows.forEach(function (r, i) {
-          if (chosen.indexOf(r.course) < 0) return;
-          var summary = r.course + ': ' + r.type;
-          lines.push('BEGIN:VEVENT', 'UID:' + ymd(r.date) + '-' + i + '@mib2026-exam-dates', 'DTSTAMP:' + stamp,
-            'DTSTART;VALUE=DATE:' + ymd(r.date), 'DTEND;VALUE=DATE:' + nextDay(r.date), 'SUMMARY:' + esc(summary));
-          ['-PT63H', '-PT15H'].forEach(function (trig) {
-            lines.push('BEGIN:VALARM', 'ACTION:DISPLAY', 'DESCRIPTION:' + esc(summary), 'TRIGGER:' + trig, 'END:VALARM');
-          });
-          lines.push('END:VEVENT');
-        });
-        lines.push('END:VCALENDAR');
-        var blob = new Blob([lines.map(fold).join('\r\n') + '\r\n'], { type: 'text/calendar;charset=utf-8' });
-        var url = URL.createObjectURL(blob);
-        var a = document.createElement('a');
-        a.href = url; a.download = 'MIB2026-exam-dates.ics';
-        document.body.appendChild(a); a.click(); a.remove();
-        setTimeout(function () { URL.revokeObjectURL(url); }, 2000);
+        save(build(rows.filter(function (r) { return chosen.indexOf(r.course) >= 0; })), 'MIB2026-exam-dates.ics');
       } catch (e) { note.textContent = 'The download did not work in this browser.'; }
     });
   } catch (e) {}
