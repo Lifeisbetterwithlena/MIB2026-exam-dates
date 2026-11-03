@@ -113,6 +113,13 @@ li:first-child { border-top: none; }
 .btn { font: inherit; font-size: 14px; font-weight: 500; padding: 8px 14px; border-radius: 8px; border: 1px solid var(--accent); background: var(--accent); color: var(--on-accent); cursor: pointer; }
 .btn:focus-visible { outline: 2px solid var(--fg); outline-offset: 2px; }
 .calnote { margin: 0; font-size: 13px; color: var(--muted); }
+.subrow { display: flex; flex-wrap: wrap; align-items: center; gap: 8px 14px; border-top: 1px solid var(--line); padding-top: 12px; }
+.sublink, .copysub { font: inherit; font-size: 14px; font-weight: 500; color: var(--accent); }
+.sublink { text-decoration: underline; text-underline-offset: 3px; }
+.copysub { background: transparent; border: 1px solid var(--line); border-radius: 8px; padding: 6px 12px; cursor: pointer; }
+.copysub:hover { border-color: var(--accent); }
+.sublink:focus-visible, .copysub:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+.suburl { flex-basis: 100%; margin: 0; font-family: var(--font-mono); font-size: 12px; color: var(--muted); word-break: break-all; user-select: all; }
 footer { font-size: 13px; color: var(--muted); }
 @media (max-width: 420px) { li { grid-template-columns: 76px minmax(0, 1fr); gap: 4px 12px; padding: 12px; } h1 { font-size: 24px; } }
 </style>
@@ -139,6 +146,12 @@ footer { font-size: 13px; color: var(--muted); }
       <div class="calrow">
         <button class="btn" id="dl" type="button">Download .ics file</button>
         <p class="calnote" id="calmsg" aria-live="polite">All-day events with reminders 3 days and 1 day before. Dates marked tbc are not included. Importing again usually updates events you added before.</p>
+      </div>
+      <div class="subrow">
+        <p class="calnote" style="flex-basis:100%">Or subscribe, so date changes show up in your calendar by themselves. This adds the whole class calendar.</p>
+        <a class="sublink" href="webcal://lifeisbetterwithlena.github.io/MIB2026-exam-dates/MIB2026-exam-dates.ics">Subscribe on iPhone or Mac</a>
+        <button class="copysub" id="copysub" type="button">Copy link for Google Calendar</button>
+        <p class="suburl" id="suburl" hidden>https://lifeisbetterwithlena.github.io/MIB2026-exam-dates/MIB2026-exam-dates.ics</p>
       </div>
     </div>
   </header>
@@ -346,6 +359,24 @@ footer { font-size: 13px; color: var(--muted); }
         note.textContent = defaultNote;
         save(build(rows.filter(function (r) { return chosen.indexOf(r.course) >= 0; })), 'MIB2026-exam-dates.ics');
       } catch (e) { note.textContent = 'The download did not work in this browser.'; }
+    });
+  } catch (e) {}
+})();
+</script>
+<script>
+(function () {
+  try {
+    var b = document.getElementById('copysub');
+    var u = document.getElementById('suburl');
+    var url = u.textContent.trim();
+    b.addEventListener('click', function () {
+      function fail() { u.hidden = false; }
+      if (navigator.clipboard && navigator.clipboard.writeText) {
+        navigator.clipboard.writeText(url).then(function () {
+          b.textContent = 'Link copied';
+          setTimeout(function () { b.textContent = 'Copy link for Google Calendar'; }, 2500);
+        }, fail);
+      } else { fail(); }
     });
   } catch (e) {}
 })();
