@@ -1,3 +1,8 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
 <title>MIB2026 Exam Dates</title>
 <meta name="claude:viewport-fit-sides" content="cover">
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -12,6 +17,7 @@
   --muted: #5B6B7D;
   --line: #DDE3EA;
   --accent: #1F5FA8;
+  --on-accent: #FFFFFF;
   --tag-bg: #FFF1D6;
   --tag-fg: #7A4B00;
   --c-supply: #12805F;
@@ -32,6 +38,7 @@
     --muted: #93A3B5;
     --line: #26354A;
     --accent: #6FA8E8;
+  --on-accent: #0E1620;
     --tag-bg: #3A2D12;
     --tag-fg: #F2C777;
     --c-supply: #3FC79B;
@@ -51,6 +58,7 @@
   --muted: #93A3B5;
   --line: #26354A;
   --accent: #6FA8E8;
+  --on-accent: #0E1620;
   --tag-bg: #3A2D12;
   --tag-fg: #F2C777;
   --c-supply: #3FC79B;
@@ -95,10 +103,22 @@ li:first-child { border-top: none; }
 .supply { color: var(--c-supply); } .chinese { color: var(--c-chinese); } .beginners { color: var(--c-beginners); } .finance { color: var(--c-finance); } .econ { color: var(--c-econ); } .strategy { color: var(--c-strategy); } .ib { color: var(--c-ib); }
 .course span.name { color: var(--fg); }
 .open li .date { color: var(--muted); }
+.cal { margin-top: 14px; padding: 14px 16px; background: var(--surface); border: 1px solid var(--line); border-radius: 12px; display: flex; flex-direction: column; gap: 10px; }
+.cal h2 { margin: 0; }
+.chips { display: flex; flex-wrap: wrap; gap: 8px 14px; }
+.chip { display: inline-flex; align-items: center; gap: 6px; font-size: 14px; cursor: pointer; }
+.chip span { color: var(--fg); }
+.chip input { margin: 0; accent-color: var(--accent); }
+.calrow { display: flex; flex-wrap: wrap; align-items: center; gap: 8px 14px; }
+.btn { font: inherit; font-size: 14px; font-weight: 500; padding: 8px 14px; border-radius: 8px; border: 1px solid var(--accent); background: var(--accent); color: var(--on-accent); cursor: pointer; }
+.btn:focus-visible { outline: 2px solid var(--fg); outline-offset: 2px; }
+.calnote { margin: 0; font-size: 13px; color: var(--muted); }
 footer { font-size: 13px; color: var(--muted); }
 @media (max-width: 420px) { li { grid-template-columns: 76px minmax(0, 1fr); gap: 4px 12px; padding: 12px; } h1 { font-size: 24px; } }
 </style>
 
+</head>
+<body>
 <main>
   <header>
     <h1>MIB2026 exam dates</h1>
@@ -112,6 +132,14 @@ footer { font-size: 13px; color: var(--muted); }
       <span class="econ"><i class="dot"></i><span style="color:var(--muted)">Economic Theory</span></span>
       <span class="strategy"><i class="dot"></i><span style="color:var(--muted)">Business Strategy</span></span>
       <span class="ib"><i class="dot"></i><span style="color:var(--muted)">International Business</span></span>
+    </div>
+    <div class="cal">
+      <h2>Add to your calendar</h2>
+      <div class="chips" id="chips"></div>
+      <div class="calrow">
+        <button class="btn" id="dl" type="button">Download .ics file</button>
+        <p class="calnote" id="calmsg" aria-live="polite">All-day events with reminders 3 days and 1 day before. Dates marked tbc are not included.</p>
+      </div>
     </div>
   </header>
 
@@ -221,3 +249,77 @@ footer { font-size: 13px; color: var(--muted); }
   } catch (e) {}
 })();
 </script>
+<script>
+(function () {
+  try {
+    var rows = [];
+    document.querySelectorAll('li[data-date]').forEach(function (li) {
+      var tag = li.querySelector('.tag');
+      if (tag && /tbc/i.test(tag.textContent)) return;
+      var t = li.querySelector('.type').cloneNode(true);
+      t.querySelectorAll('.tag,.in').forEach(function (x) { x.remove(); });
+      rows.push({
+        date: li.getAttribute('data-date'),
+        course: li.querySelector('.name').textContent.trim(),
+        type: t.textContent.trim(),
+        cls: li.querySelector('.course').className.replace('course', '').trim()
+      });
+    });
+    var courses = [];
+    rows.forEach(function (r) { if (courses.indexOf(r.course) < 0) courses.push(r.course); });
+    var chips = document.getElementById('chips');
+    courses.forEach(function (c, i) {
+      var first = rows.filter(function (x) { return x.course === c; })[0];
+      var label = document.createElement('label');
+      label.className = 'chip ' + first.cls;
+      var cb = document.createElement('input');
+      cb.type = 'checkbox'; cb.checked = true; cb.id = 'course-' + i; cb.value = c;
+      var dot = document.createElement('i'); dot.className = 'dot';
+      var span = document.createElement('span'); span.textContent = c;
+      label.appendChild(cb); label.appendChild(dot); label.appendChild(span);
+      chips.appendChild(label);
+    });
+
+    function esc(t) { return t.replace(/\\/g, '\\\\').replace(/;/g, '\\;').replace(/,/g, '\\,'); }
+    function fold(l) { var out = []; while (l.length > 73) { out.push(l.slice(0, 73)); l = ' ' + l.slice(73); } out.push(l); return out.join('\r\n'); }
+    function ymd(s) { return s.replace(/-/g, ''); }
+    function nextDay(s) {
+      var p = s.split('-');
+      var d = new Date(Date.UTC(+p[0], +p[1] - 1, +p[2] + 1));
+      return d.getUTCFullYear() + ('0' + (d.getUTCMonth() + 1)).slice(-2) + ('0' + d.getUTCDate()).slice(-2);
+    }
+
+    var note = document.getElementById('calmsg');
+    var defaultNote = note.textContent;
+    document.getElementById('dl').addEventListener('click', function () {
+      try {
+        var chosen = [];
+        chips.querySelectorAll('input:checked').forEach(function (cb) { chosen.push(cb.value); });
+        if (!chosen.length) { note.textContent = 'Select at least one course first.'; return; }
+        note.textContent = defaultNote;
+        var stamp = new Date().toISOString().replace(/[-:]/g, '').replace(/\.\d{3}/, '');
+        var lines = ['BEGIN:VCALENDAR', 'VERSION:2.0', 'PRODID:-//MIB2026 exam dates//EN', 'CALSCALE:GREGORIAN', 'X-WR-CALNAME:MIB2026 exam dates'];
+        rows.forEach(function (r, i) {
+          if (chosen.indexOf(r.course) < 0) return;
+          var summary = r.course + ': ' + r.type;
+          lines.push('BEGIN:VEVENT', 'UID:' + ymd(r.date) + '-' + i + '@mib2026-exam-dates', 'DTSTAMP:' + stamp,
+            'DTSTART;VALUE=DATE:' + ymd(r.date), 'DTEND;VALUE=DATE:' + nextDay(r.date), 'SUMMARY:' + esc(summary));
+          ['-PT63H', '-PT15H'].forEach(function (trig) {
+            lines.push('BEGIN:VALARM', 'ACTION:DISPLAY', 'DESCRIPTION:' + esc(summary), 'TRIGGER:' + trig, 'END:VALARM');
+          });
+          lines.push('END:VEVENT');
+        });
+        lines.push('END:VCALENDAR');
+        var blob = new Blob([lines.map(fold).join('\r\n') + '\r\n'], { type: 'text/calendar;charset=utf-8' });
+        var url = URL.createObjectURL(blob);
+        var a = document.createElement('a');
+        a.href = url; a.download = 'MIB2026-exam-dates.ics';
+        document.body.appendChild(a); a.click(); a.remove();
+        setTimeout(function () { URL.revokeObjectURL(url); }, 2000);
+      } catch (e) { note.textContent = 'The download did not work in this browser.'; }
+    });
+  } catch (e) {}
+})();
+</script>
+</body>
+</html>
