@@ -1,4 +1,4 @@
-<title>AEBS Exam Dates</title>
+<title>MIB2026 Exam Dates</title>
 <meta name="claude:viewport-fit-sides" content="cover">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -19,6 +19,7 @@
   --c-beginners: #B63A6B;
   --c-finance: #5B52C9;
   --c-econ: #9A6A0C;
+  --c-strategy: #0E7490;
   --font-body: "Instrument Sans", system-ui, -apple-system, "Segoe UI", sans-serif;
   --font-mono: "IBM Plex Mono", ui-monospace, "SF Mono", Menlo, monospace;
 }
@@ -37,6 +38,7 @@
     --c-beginners: #EE7FAA;
     --c-finance: #9C95F2;
     --c-econ: #E2B04F;
+    --c-strategy: #5CC8E0;
     color-scheme: dark;
   }
 }
@@ -54,6 +56,7 @@
   --c-beginners: #EE7FAA;
   --c-finance: #9C95F2;
   --c-econ: #E2B04F;
+    --c-strategy: #5CC8E0;
   color-scheme: dark;
 }
 * { box-sizing: border-box; }
@@ -70,6 +73,7 @@ body {
 main { max-width: 720px; margin: 0 auto; display: flex; flex-direction: column; gap: 28px; }
 header { display: flex; flex-direction: column; gap: 6px; }
 h1 { font-size: 28px; line-height: 1.15; font-weight: 600; margin: 0; text-wrap: balance; letter-spacing: -0.01em; }
+.school { margin: 0; font-size: 14px; font-weight: 500; color: var(--fg); }
 .sub { margin: 0; color: var(--muted); font-size: 14px; }
 .legend { display: flex; flex-wrap: wrap; gap: 6px 16px; font-size: 13px; color: var(--muted); margin-top: 8px; }
 .dot { display: inline-block; width: 9px; height: 9px; border-radius: 50%; margin-right: 6px; vertical-align: 0; background: currentColor; }
@@ -85,7 +89,7 @@ li:first-child { border-top: none; }
 .type { color: var(--muted); font-size: 14px; display: flex; flex-wrap: wrap; align-items: center; gap: 4px 8px; }
 .tag { font-size: 12px; padding: 1px 7px; border-radius: 4px; background: var(--tag-bg); color: var(--tag-fg); }
 .in { font-family: var(--font-mono); font-size: 12px; color: var(--accent); }
-.supply { color: var(--c-supply); } .chinese { color: var(--c-chinese); } .beginners { color: var(--c-beginners); } .finance { color: var(--c-finance); } .econ { color: var(--c-econ); }
+.supply { color: var(--c-supply); } .chinese { color: var(--c-chinese); } .beginners { color: var(--c-beginners); } .finance { color: var(--c-finance); } .econ { color: var(--c-econ); } .strategy { color: var(--c-strategy); }
 .course span.name { color: var(--fg); }
 .open li .date { color: var(--muted); }
 footer { font-size: 13px; color: var(--muted); }
@@ -94,14 +98,16 @@ footer { font-size: 13px; color: var(--muted); }
 
 <main>
   <header>
-    <h1>AEBS exam dates</h1>
-    <p class="sub">Status as of 3 November 2026. Dates marked tbc are not confirmed yet.</p>
+    <h1>MIB2026 exam dates</h1>
+    <p class="school">Asia Europe Business School</p>
+    <p class="sub">Status as of 3 November 2026. Days left count in Shanghai time. Dates marked tbc are not confirmed yet.</p>
     <div class="legend">
       <span class="supply"><i class="dot"></i><span style="color:var(--muted)">Global Supply Chain</span></span>
       <span class="chinese"><i class="dot"></i><span style="color:var(--muted)">Basic Chinese 1</span></span>
-      <span class="beginners"><i class="dot"></i><span style="color:var(--muted)">For Beginners</span></span>
+      <span class="beginners"><i class="dot"></i><span style="color:var(--muted)">Chinese for Beginner 1</span></span>
       <span class="finance"><i class="dot"></i><span style="color:var(--muted)">International Finance</span></span>
       <span class="econ"><i class="dot"></i><span style="color:var(--muted)">Economic Theory</span></span>
+      <span class="strategy"><i class="dot"></i><span style="color:var(--muted)">Business Strategy</span></span>
     </div>
   </header>
 
@@ -114,7 +120,11 @@ footer { font-size: 13px; color: var(--muted); }
       </li>
       <li data-date="2026-11-17">
         <div class="date">17 Nov<small>Tue</small></div>
-        <div class="what"><div class="course beginners"><i class="dot"></i><span class="name">For Beginners</span></div><div class="type">Midterm <span class="in"></span></div></div>
+        <div class="what"><div class="course beginners"><i class="dot"></i><span class="name">Chinese for Beginner 1</span></div><div class="type">Midterm <span class="in"></span></div></div>
+      </li>
+      <li data-date="2026-11-20">
+        <div class="date">20 Nov<small>Fri</small></div>
+        <div class="what"><div class="course strategy"><i class="dot"></i><span class="name">Business Strategy and Chinese Economy</span></div><div class="type">Presentation <span class="in"></span></div></div>
       </li>
       <li data-date="2026-11-20">
         <div class="date">20 Nov<small>Fri</small></div>
@@ -131,8 +141,8 @@ footer { font-size: 13px; color: var(--muted); }
         <div class="what"><div class="course supply"><i class="dot"></i><span class="name">Global Supply Chain</span></div><div class="type">Presentation <span class="in"></span></div></div>
       </li>
       <li>
-        <div class="date">~17 Dec<small>Thu</small></div>
-        <div class="what"><div class="course supply"><i class="dot"></i><span class="name">Global Supply Chain</span></div><div class="type">Report deadline <span class="tag">approx., about 10 days after the presentation</span></div></div>
+        <div class="date">Mid Dec<small>approx.</small></div>
+        <div class="what"><div class="course supply"><i class="dot"></i><span class="name">Global Supply Chain</span></div><div class="type">Report deadline <span class="tag">about 10 days after the presentation, exact date tbc</span></div></div>
       </li>
     </ul>
   </section>
@@ -142,7 +152,7 @@ footer { font-size: 13px; color: var(--muted); }
     <ul>
       <li data-date="2027-01-05">
         <div class="date">5 Jan<small>Tue</small></div>
-        <div class="what"><div class="course finance"><i class="dot"></i><span class="name">International Finance</span></div><div class="type">Presentation <span class="tag">year tbc</span> <span class="in"></span></div></div>
+        <div class="what"><div class="course finance"><i class="dot"></i><span class="name">International Finance</span></div><div class="type">Presentation <span class="in"></span></div></div>
       </li>
       <li data-date="2027-01-12">
         <div class="date">12 Jan<small>Tue</small></div>
@@ -151,6 +161,10 @@ footer { font-size: 13px; color: var(--muted); }
       <li data-date="2027-01-12">
         <div class="date">12 Jan<small>Tue</small></div>
         <div class="what"><div class="course econ"><i class="dot"></i><span class="name">Economic Theory</span></div><div class="type">Exam <span class="in"></span></div></div>
+      </li>
+      <li data-date="2027-01-14">
+        <div class="date">14 Jan<small>Thu</small></div>
+        <div class="what"><div class="course chinese"><i class="dot"></i><span class="name">Basic Chinese 1</span></div><div class="type">Final exam <span class="tag">probably, date tbc</span> <span class="in"></span></div></div>
       </li>
     </ul>
   </section>
@@ -164,7 +178,15 @@ footer { font-size: 13px; color: var(--muted); }
       </li>
       <li>
         <div class="date">TBD</div>
-        <div class="what"><div class="course beginners"><i class="dot"></i><span class="name">For Beginners</span></div><div class="type">Final exam</div></div>
+        <div class="what"><div class="course beginners"><i class="dot"></i><span class="name">Chinese for Beginner 1</span></div><div class="type">Final exam</div></div>
+      </li>
+      <li>
+        <div class="date">TBD</div>
+        <div class="what"><div class="course" style="color:var(--muted)"><i class="dot"></i><span class="name">Intermediate Chinese 1</span></div><div class="type">Midterm and final <span class="tag">dates not added yet</span></div></div>
+      </li>
+      <li>
+        <div class="date">TBD</div>
+        <div class="what"><div class="course" style="color:var(--muted)"><i class="dot"></i><span class="name">Advanced Chinese 1</span></div><div class="type">Midterm and final <span class="tag">dates not added yet</span></div></div>
       </li>
     </ul>
   </section>
@@ -175,12 +197,11 @@ footer { font-size: 13px; color: var(--muted); }
 <script>
 (function () {
   try {
-    var now = new Date();
-    var today = new Date(now.getFullYear(), now.getMonth(), now.getDate());
+    var parts = new Intl.DateTimeFormat('en-CA', { timeZone: 'Asia/Shanghai', year: 'numeric', month: '2-digit', day: '2-digit' }).format(new Date()).split('-');
+    var today = Date.UTC(+parts[0], +parts[1] - 1, +parts[2]);
     document.querySelectorAll('li[data-date]').forEach(function (li) {
       var p = li.getAttribute('data-date').split('-');
-      var d = new Date(+p[0], +p[1] - 1, +p[2]);
-      var n = Math.round((d - today) / 86400000);
+      var n = Math.round((Date.UTC(+p[0], +p[1] - 1, +p[2]) - today) / 86400000);
       var el = li.querySelector('.in');
       if (!el || n < 0) return;
       el.textContent = n === 0 ? 'today' : n === 1 ? 'tomorrow' : 'in ' + n + ' days';
