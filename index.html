@@ -20,6 +20,7 @@
   --c-finance: #5B52C9;
   --c-econ: #9A6A0C;
   --c-strategy: #0E7490;
+  --c-ib: #6B7F1A;
   --font-body: "Instrument Sans", system-ui, -apple-system, "Segoe UI", sans-serif;
   --font-mono: "IBM Plex Mono", ui-monospace, "SF Mono", Menlo, monospace;
 }
@@ -39,6 +40,7 @@
     --c-finance: #9C95F2;
     --c-econ: #E2B04F;
     --c-strategy: #5CC8E0;
+    --c-ib: #B5CC52;
     color-scheme: dark;
   }
 }
@@ -57,6 +59,7 @@
   --c-finance: #9C95F2;
   --c-econ: #E2B04F;
     --c-strategy: #5CC8E0;
+    --c-ib: #B5CC52;
   color-scheme: dark;
 }
 * { box-sizing: border-box; }
@@ -89,7 +92,7 @@ li:first-child { border-top: none; }
 .type { color: var(--muted); font-size: 14px; display: flex; flex-wrap: wrap; align-items: center; gap: 4px 8px; }
 .tag { font-size: 12px; padding: 1px 7px; border-radius: 4px; background: var(--tag-bg); color: var(--tag-fg); }
 .in { font-family: var(--font-mono); font-size: 12px; color: var(--accent); }
-.supply { color: var(--c-supply); } .chinese { color: var(--c-chinese); } .beginners { color: var(--c-beginners); } .finance { color: var(--c-finance); } .econ { color: var(--c-econ); } .strategy { color: var(--c-strategy); }
+.supply { color: var(--c-supply); } .chinese { color: var(--c-chinese); } .beginners { color: var(--c-beginners); } .finance { color: var(--c-finance); } .econ { color: var(--c-econ); } .strategy { color: var(--c-strategy); } .ib { color: var(--c-ib); }
 .course span.name { color: var(--fg); }
 .open li .date { color: var(--muted); }
 footer { font-size: 13px; color: var(--muted); }
@@ -108,6 +111,7 @@ footer { font-size: 13px; color: var(--muted); }
       <span class="finance"><i class="dot"></i><span style="color:var(--muted)">International Finance</span></span>
       <span class="econ"><i class="dot"></i><span style="color:var(--muted)">Economic Theory</span></span>
       <span class="strategy"><i class="dot"></i><span style="color:var(--muted)">Business Strategy</span></span>
+      <span class="ib"><i class="dot"></i><span style="color:var(--muted)">International Business</span></span>
     </div>
   </header>
 
@@ -175,6 +179,14 @@ footer { font-size: 13px; color: var(--muted); }
       <li>
         <div class="date">TBD</div>
         <div class="what"><div class="course econ"><i class="dot"></i><span class="name">Economic Theory</span></div><div class="type">Midterm</div></div>
+      </li>
+      <li>
+        <div class="date">TBD</div>
+        <div class="what"><div class="course ib"><i class="dot"></i><span class="name">International Business</span></div><div class="type">Case discussion</div></div>
+      </li>
+      <li>
+        <div class="date">TBD</div>
+        <div class="what"><div class="course ib"><i class="dot"></i><span class="name">International Business</span></div><div class="type">Personal report</div></div>
       </li>
       <li>
         <div class="date">TBD</div>
