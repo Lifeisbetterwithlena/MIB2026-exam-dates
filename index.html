@@ -307,12 +307,33 @@ footer { font-size: 13px; color: var(--muted); }
       return lines.map(fold).join('\r\n') + '\r\n';
     }
     function save(text, name) {
+      var coarse = window.matchMedia && window.matchMedia('(pointer: coarse)').matches;
+      if (coarse && window.File && navigator.canShare && navigator.share) {
+        try {
+          var file = new File([text], name, { type: 'text/calendar' });
+          if (navigator.canShare({ files: [file] })) {
+            navigator.share({ files: [file], title: 'MIB2026 exam dates' }).catch(function (e) {
+              if (!e || e.name !== 'AbortError') download(text, name);
+            });
+            return;
+          }
+        } catch (e) {}
+      }
+      download(text, name);
+    }
+    function download(text, name) {
       var blob = new Blob([text], { type: 'text/calendar;charset=utf-8' });
       var url = URL.createObjectURL(blob);
       var a = document.createElement('a');
       a.href = url; a.download = name;
       document.body.appendChild(a); a.click(); a.remove();
-      setTimeout(function () { URL.revokeObjectURL(url); }, 2000);
+      setTimeout(function () { URL.revokeObjectURL(url); }, 60000);
+      var alt = document.createElement('a');
+      alt.href = 'data:text/calendar;charset=utf-8,' + encodeURIComponent(text);
+      alt.download = name; alt.textContent = 'tap here';
+      note.textContent = 'If the download fails, ';
+      note.appendChild(alt);
+      note.appendChild(document.createTextNode(' to try again.'));
     }
 
     var note = document.getElementById('calmsg');
