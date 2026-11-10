@@ -70,7 +70,6 @@ GitHub Pages serves the `main` branch from the root folder (Settings, Pages). Ev
 
 Keep this list current when dates get confirmed.
 
-- Economic Theory midterm: expected 24 Nov, not confirmed.
 - Basic Chinese final: probably 14 Jan.
 - Supply Chain report: mid Dec, about 10 days after the presentation.
 - Dates not added yet: Chinese for Beginner final, Intermediate and Advanced Chinese, International Business case discussion and personal report.
