@@ -99,6 +99,7 @@ li:first-child { border-top: none; }
 .course { font-weight: 500; }
 .type { color: var(--muted); font-size: 14px; display: flex; flex-wrap: wrap; align-items: center; gap: 4px 8px; }
 .tag { font-size: 12px; padding: 1px 7px; border-radius: 4px; background: var(--tag-bg); color: var(--tag-fg); }
+.note { margin-top: 2px; font-size: 13px; color: var(--muted); }
 .in { font-family: var(--font-mono); font-size: 12px; color: var(--accent); }
 .supply { color: var(--c-supply); } .chinese { color: var(--c-chinese); } .beginners { color: var(--c-beginners); } .finance { color: var(--c-finance); } .econ { color: var(--c-econ); } .strategy { color: var(--c-strategy); } .ib { color: var(--c-ib); }
 .course span.name { color: var(--fg); }
@@ -185,6 +186,10 @@ footer { font-size: 13px; color: var(--muted); }
         <div class="date">7 Dec<small>Mon</small></div>
         <div class="what"><div class="course supply"><i class="dot"></i><span class="name">Global Supply Chain</span></div><div class="type">Presentation <span class="in"></span></div></div>
       </li>
+      <li data-date="2026-12-09">
+        <div class="date">9 Dec<small>Wed</small></div>
+        <div class="what"><div class="course ib"><i class="dot"></i><span class="name">International Business</span></div><div class="type">Personal report due <span class="in"></span></div><div class="note">2,000 words. Consult a company on a problem, using knowledge from the lectures.</div></div>
+      </li>
       <li data-date="2026-12-15">
         <div class="date">15 Dec<small>Tue</small></div>
         <div class="what"><div class="course strategy"><i class="dot"></i><span class="name">Business Strategy and Chinese Economy</span></div><div class="type">Reflection report due <span class="in"></span></div></div>
@@ -224,10 +229,6 @@ footer { font-size: 13px; color: var(--muted); }
       <li>
         <div class="date">TBD</div>
         <div class="what"><div class="course ib"><i class="dot"></i><span class="name">International Business</span></div><div class="type">Case discussion</div></div>
-      </li>
-      <li>
-        <div class="date">TBD</div>
-        <div class="what"><div class="course ib"><i class="dot"></i><span class="name">International Business</span></div><div class="type">Personal report</div></div>
       </li>
       <li>
         <div class="date">TBD</div>

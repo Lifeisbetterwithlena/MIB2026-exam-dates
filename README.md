@@ -47,6 +47,7 @@ Skipping step 2 means the page and the subscribed calendars show different dates
 - Not confirmed yet: add `<span class="tag">... tbc</span>` to the type. The word **tbc** in the tag keeps the row out of the calendar download and the `.ics` file.
 - Once a date is confirmed, remove the tag, then run `python3 build_ics.py`.
 - Dates that are not known at all go in the section "Dates not added yet" without `data-date`.
+- Optional details (word count, requirements): add `<div class="note">...</div>` inside `.what`, after the `.type` div. Notes appear on the page only, not in the calendar.
 - Rows are grouped by month. Keep them in date order within a month.
 
 ## Calendar features
@@ -72,4 +73,4 @@ Keep this list current when dates get confirmed.
 
 - Basic Chinese final: probably 14 Jan.
 - Supply Chain report: mid Dec, about 10 days after the presentation.
-- Dates not added yet: Chinese for Beginner final, Intermediate and Advanced Chinese, International Business case discussion and personal report.
+- Dates not added yet: Chinese for Beginner final, Intermediate and Advanced Chinese, International Business case discussion.
